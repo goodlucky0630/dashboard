@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
@@ -16,11 +16,25 @@ import SouthEastIcon from '@mui/icons-material/SouthEast';
 import AddIcon from '@mui/icons-material/Add';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { purple, deepOrange, green, blue, grey } from '@mui/material/colors';
-// import { BarChart } from 'react-d3-library';
+
+import BarChart from '../charts/BarChart';
+const datas = [
+{date:'2018-04-14', value: 8140.71},
+{date:'2018-04-15', value: 8338.42},
+{date:'2018-04-16', value: 8371.15},
+{date:'2018-04-17', value: 8285.96},
+{date:'2018-04-18', value: 8197.8},
+{date:'2018-04-19', value: 8298.69},
+{date:'2018-04-20', value: 8880.23},
+{date:'2018-04-21', value: 8997.57},
+{date:'2018-04-22', value: 9001.64},
+{date:'2018-04-23', value: 8958.55}
+]
 
 const Main = () => {
   const [value, setValue] = useState(0);
   const [tabValue, setTabValue] = useState(0);
+  const [data, setData] = useState([]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -30,12 +44,9 @@ const Main = () => {
     setTabValue(newValue);
   };
 
-  // const [data] = useState([
-  //   { label: 'A', value: 5 },
-  //   { label: 'B', value: 8 },
-  //   { label: 'C', value: 3 },
-  //   { label: 'D', value: 9 },
-  // ])
+  useEffect(() => {
+    setData(datas);
+  }, [datas]);
 
 	return(
 		<Stack direction="column" alignItems="stretch" p={2} >
@@ -196,12 +207,7 @@ const Main = () => {
           <Typography variant="subtitle1" display="block" gutterBottom>
             Scores
           </Typography>
-          {/* <BarChart
-            data={data}
-            width={600}
-            height={400}
-            margin={{ top: 20, bottom: 20, left: 20, right: 20 }}
-          /> */}
+          <BarChart data={data} />
         </Stack>
       </Paper>
     </Stack>
