@@ -17,24 +17,33 @@ import AddIcon from '@mui/icons-material/Add';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { purple, deepOrange, green, blue, grey } from '@mui/material/colors';
 
-import BarChart from '../charts/BarChart';
+import BarChart from '../charts/BarChart.js';
+import AreaChart from '../charts/AreaChart.js';
+
 const datas = [
-{date:'2018-04-14', value: 8140.71},
-{date:'2018-04-15', value: 8338.42},
-{date:'2018-04-16', value: 8371.15},
-{date:'2018-04-17', value: 8285.96},
-{date:'2018-04-18', value: 8197.8},
-{date:'2018-04-19', value: 8298.69},
-{date:'2018-04-20', value: 8880.23},
-{date:'2018-04-21', value: 8997.57},
-{date:'2018-04-22', value: 9001.64},
-{date:'2018-04-23', value: 8958.55}
+  { date: new Date('2022/5/11'), value: 40 },
+  { date: new Date('2022/5/12'), value: 30 },
+  { date: new Date('2022/5/13'), value: 41 },
+  { date: new Date('2022/5/14'), value: 19 },
+  { date: new Date('2022/5/15'), value: 38 },
+  { date: new Date('2022/5/16'), value: 21 },
+  { date: new Date('2022/5/17'), value: 30 }
+]
+
+const dataa = [
+  { date: new Date('2022/5/11'), value: 1.5 },
+  { date: new Date('2022/5/12'), value: 0.3 },
+  { date: new Date('2022/5/13'), value: 1.8 },
+  { date: new Date('2022/5/14'), value: 0 },
+  { date: new Date('2022/5/15'), value: 1.3 },
+  { date: new Date('2022/5/16'), value: 0 }
 ]
 
 const Main = () => {
   const [value, setValue] = useState(0);
   const [tabValue, setTabValue] = useState(0);
-  const [data, setData] = useState([]);
+  const [data1, setData1] = useState([]);
+  const [data2, setData2] = useState([]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -45,8 +54,9 @@ const Main = () => {
   };
 
   useEffect(() => {
-    setData(datas);
-  }, [datas]);
+    setData1(datas);
+    setData2(dataa);
+  }, []);
 
 	return(
 		<Stack direction="column" alignItems="stretch" p={2} >
@@ -207,7 +217,8 @@ const Main = () => {
           <Typography variant="subtitle1" display="block" gutterBottom>
             Scores
           </Typography>
-          <BarChart data={data} />
+          <BarChart data={data1} />
+          <AreaChart data={data2} />
         </Stack>
       </Paper>
     </Stack>

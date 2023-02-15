@@ -13,7 +13,9 @@ import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
+import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
+import TodayIcon from '@mui/icons-material/Today';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -55,6 +57,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+// const MyThemeComponent = styled('div')(({ theme }) => ({
+//   '&::after': {
+//     borderRight: '1px solid white',
+//     content: '""',
+//   },
+// }));
+
+// const theme = createTheme();
+
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -73,10 +84,6 @@ const Navbar = () => {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
-  };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
   };
 
   const menuId = 'primary-search-account-menu';
@@ -155,64 +162,47 @@ const Navbar = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" sx={{ display: 'flex', bgcolor: "#01579b" }}>
         <Toolbar variant="dense">
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%'}}>
             <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
+              edge="start"
               color="inherit"
+              aria-label="open drawer"
+              sx={{ mr: 2 }}
             >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
+              <MenuIcon />
             </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </Search>
+            <Box sx={{ flexGrow: 1 }} />
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mx: 2 }}>
+                <HourglassEmptyIcon sx={{ fontSize: '14px'}} />
+                17:00
+              </Box>
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mx: 2}}>
+                <TodayIcon sx={{ fontSize: '14px'}} />
+                17.05.2020
+              </Box>
+              <Box sx={{ border: "1px solid white"}}></Box>
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mx: 2 }}>
+                <Box sx={{ p: 1, borderRadius: 2, bgcolor: 'white', color: 'black'}}>
+                  MM
+                </Box>
+                <KeyboardArrowDownIcon />
+              </Box>
+              <Box sx={{ border: '1px solid white', p: 1, borderRadius: 2 }}>
+                Abmeldon
+              </Box>
+            </Box>
           </Box>
         </Toolbar>
       </AppBar>

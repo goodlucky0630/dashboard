@@ -8,7 +8,7 @@ const BarChart = ({ data }) => {
     width = 1150 - margin.left - margin.right,
     height = 150 - margin.top - margin.bottom;
     
-    const svg = d3.select("#my_dataviz")
+    const svg = d3.select("#my_dataviz1")
     .append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
@@ -25,11 +25,13 @@ const BarChart = ({ data }) => {
     .call(d3.axisBottom(x).ticks(7).tickFormat((d, i) => ['22.01.2014', '22.01.2020', '22.01.2020', '22.01.2020', '22.01.2020', '22.01.2020', '22.01.2020'][i]))
     .call(g => g.selectAll(".tick line").clone()
     .attr("y2", - height)
-    .attr("stroke-opacity", 0.1));
+    .attr("stroke-opacity", 0.1))
+    .selectAll(".tick text")
+        .attr("dx", "9em");
 
   // Add Y axis
   const y = d3.scaleLinear()
-    .domain([0, 40])
+    .domain([0, 2])
     .range([ height, 0 ]);
 
   svg.append("g")
@@ -38,35 +40,28 @@ const BarChart = ({ data }) => {
     .attr("x2", width)
     .attr("stroke-opacity", 0.1));
 
-  // Add the line
-  svg
-  .append("path")
-    .datum(data)
-    .attr("fill", "none")
-    .attr("stroke", "#69b3a2")
-    .attr("stroke-width", 1.5)
-      .attr("d", d3.line()
-        .curve(d3.curveMonotoneX)
-        .x(function(d) { return x(d.date) })
-        .y(function(d) { return y(d.value) })
-        )
+    var histogram = d3.histogram()
+    .domain(x.domain())  // then the domain of the graphic
+    .thresholds(x.ticks(7));
 
-  // Add the points
-  svg
-    .append("g")
-    .selectAll("dot")
+    const u = svg.selectAll("rect")
+    .data(histogram(data))
+
+  // Add the area
+  u
+    .enter()
+    .append("rect") // Add a new rect for each new elements
     .data(data)
-    .join("circle")
-        .attr("class", "myCircle")
-        .attr("cx", d => x(d.date))
-        .attr("cy", d => y(d.value))
-        .attr("r", 5)
-        .attr("stroke", "#69b3a2")
-        .attr("stroke-width", 1)
-        .attr("fill", "white")
+    .transition() // and apply changes to all of them
+    .duration(1000)
+        .attr("x", 30)
+        .attr("transform", function(d) { return "translate(" + x(d.date) + "," + y(d.value) + ")"; })
+        .attr("width", function(d) { return 120 ; })
+        .attr("height", function(d) { return height - y(d.value); })
+        .style("fill", "#607d8b")
 
     return (
-        <div id="my_dataviz"></div>
+        <div id="my_dataviz1"></div>
     )
 
 }

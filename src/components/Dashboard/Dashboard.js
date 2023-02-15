@@ -13,7 +13,7 @@ export default function Dashboard() {
     <>
       <Navbar />
       <Grid container spacing={0} sx={{ height: 881 }}>
-        <Grid item xl={2} sx={{ bgcolor: '#202124' }}>
+        <Grid item xl={2} sx={{ bgcolor: '#263238' }}>
           <Sidebar />
         </Grid>
         <Grid xl={8} sx={{ bgcolor: grey[200] }}>
